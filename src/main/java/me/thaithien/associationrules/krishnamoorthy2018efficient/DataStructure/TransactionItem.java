@@ -30,4 +30,9 @@ public class TransactionItem {
         this.name = itemqty[0];
         this.IU = Integer.valueOf(itemqty[1]);
     }
+
+    @Override
+    public String toString() {
+        return "(" + this.name + "," + String.valueOf(this.IU) +")";
+    }
 }

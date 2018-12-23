@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 /**
  * each item in Table 2 (paper)
@@ -24,7 +25,7 @@ public class Transaction {
      * Definition 9
      * The transaction utility TU
      */
-    public int TU;
+    public int TU = 0;
 
     public Transaction(List<TransactionItem> transactionContent) {
         this.transactionContent = transactionContent;
@@ -44,5 +45,16 @@ public class Transaction {
         for (String itemQty : itemQtyList){
             transactionContent.add(new TransactionItem(itemQty));
         }
+    }
+
+    @Override
+    public String toString() {
+        StringJoiner contentStr = new StringJoiner(",");
+        StringJoiner iuStr = new StringJoiner(",");
+        for (TransactionItem item : this.transactionContent){
+            contentStr.add(item.name);
+            iuStr.add(String.valueOf(item.IU));
+        }
+        return "T_"+String.valueOf(TID) + " " + contentStr.toString() + " " + iuStr.toString() + " " + String.valueOf(this.TU);
     }
 }

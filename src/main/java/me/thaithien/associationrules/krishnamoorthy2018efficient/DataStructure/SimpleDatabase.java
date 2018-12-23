@@ -15,6 +15,8 @@ public class SimpleDatabase {
 
     public ImmutableList<ItemInfo> itemInfos;
 
+    private int counter = 0;
+
     /**
      * One transaction per line
      * name,qty space name,qty
@@ -27,6 +29,10 @@ public class SimpleDatabase {
         try {
             Stream<String>  ss = Files.lines(Paths.get(path));
             this.transactionList = ss.map(Transaction::new).collect(Collectors.toList());
+            for (Transaction transaction : transactionList){
+                counter += 1;
+                transaction.TID = counter;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
