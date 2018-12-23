@@ -2,6 +2,8 @@ package me.thaithien.associationrules.krishnamoorthy2018efficient;
 
 import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.SimpleDatabase;
 import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.Transaction;
+import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.TransactionItem;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,6 +27,21 @@ public class Common {
             sumU += iu * eu;
         }
         return sumU;
+    }
+
+    /**
+     * Definition 9
+     * Calculate the transaction utility
+     * @param t
+     * @param db
+     * @return
+     */
+    public static int calTU(Transaction t, SimpleDatabase db){
+        int sumTU = 0;
+        for (TransactionItem item : t.transactionContent){
+            sumTU += calU(item.name, t, db);
+        }
+        return sumTU;
     }
 
 

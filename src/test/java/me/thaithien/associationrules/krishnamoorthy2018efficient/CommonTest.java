@@ -42,4 +42,10 @@ public class CommonTest {
     @After
     public void tearDown() throws Exception {
     }
+
+    @Test
+    public void calTU() {
+        int tu = Common.calTU(db.transactionList.get(2), db);
+        assertEquals(tu, 33);
+    }
 }
