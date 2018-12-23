@@ -1,6 +1,7 @@
 package me.thaithien.associationrules.krishnamoorthy2018efficient;
 
 import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.SimpleDatabase;
+import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.Transaction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +38,8 @@ public class CommonTest {
         this.db = new SimpleDatabase();
         db.loadTransactionFromFile(transactionFilePath);
         db.loadItemInfosFromFile(eumufilePath);
-        db.callTUforAllTransaction();
+        db.calTUforAllTransaction();
+        db.calTWUforAllTransaction();
     }
 
     @After
@@ -54,5 +56,12 @@ public class CommonTest {
     public void calTWU() {
         int twu = Common.calTWU("g", db);
         assertEquals(twu, 97);
+    }
+
+    @Test
+    public void orderItemsByTWU() {
+        Transaction t = db.transactionList.get(0);
+        Common.orderItemsByTWU(t, db.mapTWU);
+        System.out.println(t);
     }
 }

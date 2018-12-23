@@ -33,7 +33,7 @@ public class SimpleDatabaseTest {
         SimpleDatabase db = new SimpleDatabase();
         db.loadTransactionFromFile(transactionFilePath);
         db.loadItemInfosFromFile(eumufilePath);
-        db.callTUforAllTransaction();
+        db.calTUforAllTransaction();
         for (Transaction transaction : db.transactionList){
             System.out.println(transaction);
         }
@@ -55,8 +55,8 @@ public class SimpleDatabaseTest {
         SimpleDatabase db = new SimpleDatabase();
         db.loadTransactionFromFile(transactionFilePath);
         db.loadItemInfosFromFile(eumufilePath);
-        db.callTUforAllTransaction();
-        db.calculateTWUforAllTransaction();
+        db.calTUforAllTransaction();
+        db.calTWUforAllTransaction();
 
         for (String item: db.mapTWU.keySet()){
             System.out.println(item + " " + String.valueOf(db.mapTWU.get(item)));

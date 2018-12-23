@@ -5,8 +5,7 @@ import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.T
 import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.TransactionItem;
 import sun.java2d.pipe.SpanShapeRenderer;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Common {
 
@@ -64,5 +63,14 @@ public class Common {
             }
         }
         return twu;
+    }
+
+    public static void orderItemsByTWU(Transaction t, Map<String, Integer> mapTWU){
+        Collections.sort(t.transactionContent, new Comparator<TransactionItem>() {
+            @Override
+            public int compare(TransactionItem o1, TransactionItem o2) {
+                return mapTWU.get(o1.name).compareTo(mapTWU.get(o2.name));
+            }
+        });
     }
 }

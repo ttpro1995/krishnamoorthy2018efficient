@@ -76,14 +76,14 @@ public class SimpleDatabase {
         }
     }
 
-    public void callTUforAllTransaction(){
+    public void calTUforAllTransaction(){
         for (Transaction transaction: transactionList){
             int tu = Common.calTU(transaction, this);
             transaction.TU = tu;
         }
     }
 
-    public void calculateTWUforAllTransaction(){
+    public void calTWUforAllTransaction(){
         this.mapTWU = new HashMap<>();
         for (String item: this.allItem){
             int twu = Common.calTWU(item, this);
