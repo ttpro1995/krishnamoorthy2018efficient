@@ -5,7 +5,9 @@ import com.google.common.collect.ImmutableList;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -14,6 +16,10 @@ public class SimpleDatabase {
     public List<Transaction> transactionList;
 
     public ImmutableList<ItemInfo> itemInfos;
+
+    public Map<String, Integer> mapItemEU;
+
+    public Map<String, Integer> mapItemMU;
 
     private int counter = 0;
 
@@ -47,8 +53,14 @@ public class SimpleDatabase {
      */
     public void loadItemInfosFromFile(String path){
         try {
+            mapItemEU = new HashMap<>();
+            mapItemMU = new HashMap<>();
             Stream<String>  ss = Files.lines(Paths.get(path));
             List<ItemInfo> iflist = ss.map(ItemInfo::new).collect(Collectors.toList());
+            for (ItemInfo info : iflist){
+                mapItemEU.put(info.itemName, info.EU);
+                mapItemMU.put(info.itemName, info.MU);
+            }
             this.itemInfos = ImmutableList.copyOf(iflist);
         } catch (IOException e) {
             e.printStackTrace();

@@ -2,9 +2,7 @@ package me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure;
 
 import com.google.common.collect.ImmutableList;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringJoiner;
+import java.util.*;
 
 /**
  * each item in Table 2 (paper)
@@ -27,8 +25,22 @@ public class Transaction {
      */
     public int TU = 0;
 
+    /**
+     * dictionary of item - iu for fast access
+     */
+    public Map<String, Integer> mapItemIU;
+
+    /**
+     * item in transaction for quick access
+     */
+    public Set<String> itemInTransaction;
+
     public Transaction(List<TransactionItem> transactionContent) {
+        mapItemIU = new HashMap<>();
         this.transactionContent = transactionContent;
+        for (TransactionItem item : this.transactionContent){
+            mapItemIU.put(item.name, item.IU);
+        }
     }
 
     /**
@@ -40,10 +52,12 @@ public class Transaction {
      */
     public Transaction(String transactionStr){
         String[] itemQtyList = transactionStr.split(" "); // split by space
-
+        mapItemIU = new HashMap<>();
         transactionContent = new ArrayList<>();
         for (String itemQty : itemQtyList){
-            transactionContent.add(new TransactionItem(itemQty));
+            TransactionItem item = new TransactionItem(itemQty);
+            transactionContent.add(item);
+            mapItemIU.put(item.name, item.IU);
         }
     }
 
