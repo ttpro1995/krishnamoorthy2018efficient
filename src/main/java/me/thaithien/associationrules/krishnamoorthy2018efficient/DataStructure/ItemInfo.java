@@ -39,4 +39,11 @@ public class ItemInfo {
         this.EU = Integer.parseInt(info[1]);
         this.MU = Integer.parseInt(info[2]);
     }
+
+    @Override
+    public String toString() {
+        return "("+ itemName + ","
+                + String.valueOf(EU) + ","
+                + String.valueOf(MU) + ")";
+    }
 }

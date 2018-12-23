@@ -18,5 +18,11 @@ public class SimpleDatabaseTest {
 
     @Test
     public void loadItemInfosFromFile() {
+        String filePath = "testdata/item_profit_and_minimum_thresholds.txt";
+        SimpleDatabase db = new SimpleDatabase();
+        db.loadItemInfosFromFile(filePath);
+        for (ItemInfo info : db.itemInfos){
+            System.out.println(info);
+        }
     }
 }
