@@ -6,15 +6,15 @@ import me.thaithien.associationrules.krishnamoorthy2018efficient.Common;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SimpleDatabase {
 
     public List<Transaction> transactionList;
+
+    public Set<String> allItem;
 
     public ImmutableList<ItemInfo> itemInfos;
 
@@ -40,11 +40,13 @@ public class SimpleDatabase {
      */
     public void loadTransactionFromFile(String path){
         try {
+            this.allItem = new HashSet<>();
             Stream<String>  ss = Files.lines(Paths.get(path));
             this.transactionList = ss.map(Transaction::new).collect(Collectors.toList());
             for (Transaction transaction : transactionList){
                 counter += 1;
                 transaction.TID = counter;
+                allItem.addAll(transaction.itemInTransaction);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,6 +84,11 @@ public class SimpleDatabase {
     }
 
     public void calculateTWUforAllTransaction(){
+        this.mapTWU = new HashMap<>();
+        for (String item: this.allItem){
+            int twu = Common.calTWU(item, this);
+            this.mapTWU.put(item, twu);
+        }
 
     }
 
