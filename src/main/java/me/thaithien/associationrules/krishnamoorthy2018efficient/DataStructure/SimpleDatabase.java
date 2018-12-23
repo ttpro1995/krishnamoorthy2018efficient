@@ -89,7 +89,15 @@ public class SimpleDatabase {
             int twu = Common.calTWU(item, this);
             this.mapTWU.put(item, twu);
         }
+    }
 
+    /**
+     * Table 5
+     */
+    public void orderItemAllTransaction(){
+        for (Transaction t: this.transactionList){
+            Common.orderItemsByTWU(t, mapTWU);
+        }
     }
 
 

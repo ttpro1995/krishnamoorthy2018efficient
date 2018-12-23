@@ -73,6 +73,6 @@ public class Transaction {
             contentStr.add(item.name);
             iuStr.add(String.valueOf(item.IU));
         }
-        return "T_"+String.valueOf(TID) + " " + contentStr.toString() + " " + iuStr.toString() + " " + String.valueOf(this.TU);
+        return "T_"+String.valueOf(TID) + "\t" + contentStr.toString() + "\t" + iuStr.toString() + "\t" + String.valueOf(this.TU);
     }
 }

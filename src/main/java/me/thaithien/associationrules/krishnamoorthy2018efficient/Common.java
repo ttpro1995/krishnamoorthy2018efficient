@@ -55,6 +55,12 @@ public class Common {
         return result;
     }
 
+    /**
+     * definition 10
+     * @param item
+     * @param db
+     * @return
+     */
     public static int calTWU(String item, SimpleDatabase db){
         int twu = 0;
         for (Transaction t : db.transactionList){
@@ -65,6 +71,11 @@ public class Common {
         return twu;
     }
 
+    /**
+     * Definition 14
+     * @param t
+     * @param mapTWU
+     */
     public static void orderItemsByTWU(Transaction t, Map<String, Integer> mapTWU){
         Collections.sort(t.transactionContent, new Comparator<TransactionItem>() {
             @Override
