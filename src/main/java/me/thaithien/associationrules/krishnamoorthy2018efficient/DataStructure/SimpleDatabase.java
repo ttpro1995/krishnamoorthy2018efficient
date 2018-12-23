@@ -1,6 +1,7 @@
 package me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure;
 
 import com.google.common.collect.ImmutableList;
+import me.thaithien.associationrules.krishnamoorthy2018efficient.Common;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -64,6 +65,13 @@ public class SimpleDatabase {
             this.itemInfos = ImmutableList.copyOf(iflist);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void callTUforAllTransaction(){
+        for (Transaction transaction: transactionList){
+            int tu = Common.calTU(transaction, this);
+            transaction.TU = tu;
         }
     }
 
