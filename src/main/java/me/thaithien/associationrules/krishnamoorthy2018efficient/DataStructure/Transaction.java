@@ -37,9 +37,11 @@ public class Transaction {
 
     public Transaction(List<TransactionItem> transactionContent) {
         mapItemIU = new HashMap<>();
+        itemInTransaction = new HashSet<>();
         this.transactionContent = transactionContent;
         for (TransactionItem item : this.transactionContent){
             mapItemIU.put(item.name, item.IU);
+            itemInTransaction.add(item.name);
         }
     }
 
@@ -54,10 +56,12 @@ public class Transaction {
         String[] itemQtyList = transactionStr.split(" "); // split by space
         mapItemIU = new HashMap<>();
         transactionContent = new ArrayList<>();
+        itemInTransaction = new HashSet<>();
         for (String itemQty : itemQtyList){
             TransactionItem item = new TransactionItem(itemQty);
             transactionContent.add(item);
             mapItemIU.put(item.name, item.IU);
+            itemInTransaction.add(item.name);
         }
     }
 

@@ -37,6 +37,7 @@ public class CommonTest {
         this.db = new SimpleDatabase();
         db.loadTransactionFromFile(transactionFilePath);
         db.loadItemInfosFromFile(eumufilePath);
+        db.callTUforAllTransaction();
     }
 
     @After
@@ -47,5 +48,11 @@ public class CommonTest {
     public void calTU() {
         int tu = Common.calTU(db.transactionList.get(2), db);
         assertEquals(tu, 33);
+    }
+
+    @Test
+    public void calTWU() {
+        int twu = Common.calTWU("g", db);
+        assertEquals(twu, 97);
     }
 }

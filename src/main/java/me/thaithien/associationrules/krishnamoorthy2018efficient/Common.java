@@ -55,4 +55,14 @@ public class Common {
         List<String> result = Arrays.asList(rStr);
         return result;
     }
+
+    public static int calTWU(String item, SimpleDatabase db){
+        int twu = 0;
+        for (Transaction t : db.transactionList){
+            if (t.itemInTransaction.contains(item)){
+                twu += t.TU;
+            }
+        }
+        return twu;
+    }
 }

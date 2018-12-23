@@ -22,6 +22,12 @@ public class SimpleDatabase {
 
     public Map<String, Integer> mapItemMU;
 
+    /**
+     * Table 4 in paper
+     * key - value of Transaction Weight Utility
+     */
+    public Map<String, Integer> mapTWU;
+
     private int counter = 0;
 
     /**
@@ -73,6 +79,10 @@ public class SimpleDatabase {
             int tu = Common.calTU(transaction, this);
             transaction.TU = tu;
         }
+    }
+
+    public void calculateTWUforAllTransaction(){
+
     }
 
 
