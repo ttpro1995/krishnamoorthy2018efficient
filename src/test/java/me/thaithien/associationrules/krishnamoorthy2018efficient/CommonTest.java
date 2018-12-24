@@ -64,4 +64,32 @@ public class CommonTest {
         Common.orderItemsByTWU(t, db.mapTWU);
         System.out.println(t);
     }
+
+    @Test
+    public void ext() {
+        List<String> s1 = Common.extension("fd", db);
+        List<String> s2 = Common.extension("b", db);
+        System.out.println(s1);
+        System.out.println(s2);
+    }
+
+    @Test
+    public void calMIU() {
+        int aMU = Common.calMIU("a", db);
+        int afMU = Common.calMIU("af", db);
+        assertEquals(80, aMU);
+        assertEquals(44, afMU);
+    }
+
+    @Test
+    public void calSMU() {
+        int eaSMU = Common.calSMU("ea", db);
+        int dcSMU = Common.calSMU("dc", db);
+        int fSMU = Common.calSMU("f", db);
+        int gSMU = Common.calSMU("g", db);
+        assertEquals(0, dcSMU);
+        assertEquals(62, eaSMU);
+        assertEquals(44, fSMU);
+        assertEquals(57, gSMU);
+    }
 }

@@ -6,6 +6,7 @@ import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.T
 import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Common {
 
@@ -83,5 +84,54 @@ public class Common {
                 return mapTWU.get(o1.name).compareTo(mapTWU.get(o2.name));
             }
         });
+    }
+
+    /**
+     * Definition 15
+     * Extension of the itemset
+     * @param itemset
+     */
+    public static List<String> extension(String itemset, SimpleDatabase db){
+        List<String> chars = splitStringToCharacter(itemset);
+        String lastchar = chars.get(chars.size()-1);
+        int idx = db.orderItemTWU.indexOf(lastchar);
+        List<String> result = new ArrayList<>();
+        for (int i = idx + 1; i < db.orderItemTWU.size(); i++){
+            result.add(db.orderItemTWU.get(i));
+        }
+        return result;
+    }
+
+    /**
+     * Definition 2
+     * @return
+     */
+    public static int calMIU(String itemset, SimpleDatabase db){
+        if (itemset.length()==0){
+            return 0;
+        }
+        List<String> items = splitStringToCharacter(itemset);
+        List<Integer> muList = items.stream().map(item -> db.mapItemMU.get(item)).collect(Collectors.toList());
+        return Collections.min(muList);
+    }
+
+    /**
+     * Definition 16
+     * @param itemset
+     * @param db
+     * @return
+     */
+    public static int calSMU(String itemset, SimpleDatabase db){
+        int a = calMIU(itemset, db);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String c : Common.extension(itemset, db)){
+            stringBuilder.append(c);
+        }
+        int b = calMIU(stringBuilder.toString(), db);
+        if (a < b){
+            return a;
+        } else {
+            return b;
+        }
     }
 }

@@ -28,6 +28,8 @@ public class SimpleDatabase {
      */
     public Map<String, Integer> mapTWU;
 
+    public List<String> orderItemTWU;
+
     private int counter = 0;
 
     /**
@@ -85,10 +87,14 @@ public class SimpleDatabase {
 
     public void calTWUforAllTransaction(){
         this.mapTWU = new HashMap<>();
+        this.orderItemTWU = new ArrayList<>();
         for (String item: this.allItem){
             int twu = Common.calTWU(item, this);
             this.mapTWU.put(item, twu);
+            this.orderItemTWU.add(item);
         }
+
+        Collections.sort(this.orderItemTWU, Comparator.comparing(o -> mapTWU.get(o)));
     }
 
     /**
