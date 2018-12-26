@@ -1,5 +1,6 @@
 package me.thaithien.associationrules.krishnamoorthy2018efficient;
 
+import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.EUCS;
 import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.SimpleDatabase;
 import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.Transaction;
 import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.TransactionItem;
@@ -27,6 +28,18 @@ public class Algorithm {
             }
             tuList.add(tu);
             t.TU = tu; // update new TU
+            for (int i = 0; i< t.transactionContent.size(); i++){
+                for (int j = 0 ; j< t.transactionContent.size(); j++){
+                    String x1 = t.transactionContent.get(i).name;
+                    String x2 = t.transactionContent.get(j).name;
+                    if (x1.equals(x2)){
+                        continue;
+                    }
+                    EUCS.increment(x1, x2, t.TU);
+                }
+            }
         }
+
+
     }
 }
