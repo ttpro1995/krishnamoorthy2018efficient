@@ -87,6 +87,20 @@ public class Common {
     }
 
     /**
+     * Definition 14
+     * @param items
+     * @param mapTWU
+     */
+    public static void orderItemsByTWU(List<String> items, Map<String, Integer> mapTWU){
+        Collections.sort(items, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return mapTWU.get(o1).compareTo(mapTWU.get(o2));
+            }
+        });
+    }
+
+    /**
      * Definition 15
      * Extension of the itemset
      * @param itemset

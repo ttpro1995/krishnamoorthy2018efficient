@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -63,6 +64,9 @@ public class CommonTest {
         Transaction t = db.transactionList.get(0);
         Common.orderItemsByTWU(t, db.mapTWU);
         System.out.println(t);
+        List<String> itemStr = Arrays.asList("a", "b", "c", "d", "e", "f");
+        Common.orderItemsByTWU(itemStr, db.mapTWU);
+        System.out.print(itemStr.toString());
     }
 
     @Test

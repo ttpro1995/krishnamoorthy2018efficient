@@ -40,6 +40,14 @@ public class Algorithm {
             }
         }
 
+        // Iteratively construct 1-itemset ULs
+        List<List> listOneItemset = new ArrayList<>();
+        for (String item : db.orderItemTWU){ // 1-item already sorted by TWU
+            List<String> a = new ArrayList<>();
+            a.add(item);
+            listOneItemset.add(a);
+        }
 
+        //TODO: explore search tree
     }
 }
