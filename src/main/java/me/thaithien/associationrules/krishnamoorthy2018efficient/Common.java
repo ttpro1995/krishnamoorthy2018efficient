@@ -1,5 +1,6 @@
 package me.thaithien.associationrules.krishnamoorthy2018efficient;
 
+import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.Itemset;
 import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.SimpleDatabase;
 import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.Transaction;
 import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.TransactionItem;
@@ -47,6 +48,7 @@ public class Common {
 
     /**
      * split string to list of character
+     * @deprecated
      * @param inStr example: ac
      * @return example ["a", "c"]
      */
@@ -103,6 +105,7 @@ public class Common {
     /**
      * Definition 15
      * Extension of the itemset
+     * @deprecated input itemset as List instead
      * @param itemset
      */
     public static List<String> extension(String itemset, SimpleDatabase db){
@@ -116,8 +119,27 @@ public class Common {
         return result;
     }
 
+
+
+    /**
+     * Definition 15
+     * Extension of the itemset
+     * @param itemset
+     */
+    public static Itemset extension(Itemset itemset, SimpleDatabase db){
+        String lastItem = itemset.get(itemset.size()-1);
+        int idx = db.orderItemTWU.indexOf(lastItem);
+        List<String> result = new ArrayList<>();
+        for (int i = idx + 1; i < db.orderItemTWU.size(); i++){
+            result.add(db.orderItemTWU.get(i));
+        }
+        Itemset resultItemset = new Itemset(result);
+        return resultItemset;
+    }
+
     /**
      * Definition 2
+     * @deprecated input itemset as List instead of single string
      * @return
      */
     public static int calMIU(String itemset, SimpleDatabase db){
@@ -130,7 +152,23 @@ public class Common {
     }
 
     /**
+     * Definition 2
+     * @param itemset
+     * @param db
+     * @return
+     */
+    public static int calMIU(Itemset itemset, SimpleDatabase db){
+        if (itemset.size()==0){
+            return 0;
+        }
+        List<Integer> muList = itemset.content.stream().map(item -> db.mapItemMU.get(item)).collect(Collectors.toList());
+        return Collections.min(muList);
+    }
+
+
+    /**
      * Definition 16
+     * @deprecated input itemset as List instead of single string
      * @param itemset
      * @param db
      * @return
@@ -142,6 +180,23 @@ public class Common {
             stringBuilder.append(c);
         }
         int b = calMIU(stringBuilder.toString(), db);
+        if (a < b){
+            return a;
+        } else {
+            return b;
+        }
+    }
+
+    /**
+     * Definition 16
+     * @param itemset
+     * @param db
+     * @return
+     */
+    public static int calSMU(Itemset itemset, SimpleDatabase db){
+        int a = calMIU(itemset, db);
+
+        int b = calMIU(Common.extension(itemset, db), db);
         if (a < b){
             return a;
         } else {

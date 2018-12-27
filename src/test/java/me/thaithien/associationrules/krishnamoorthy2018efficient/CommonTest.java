@@ -1,5 +1,6 @@
 package me.thaithien.associationrules.krishnamoorthy2018efficient;
 
+import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.Itemset;
 import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.SimpleDatabase;
 import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.Transaction;
 import org.junit.After;
@@ -71,26 +72,34 @@ public class CommonTest {
 
     @Test
     public void ext() {
-        List<String> s1 = Common.extension("fd", db);
-        List<String> s2 = Common.extension("b", db);
+//        List<String> s1 = Common.extension("fd", db);
+//        List<String> s2 = Common.extension("b", db);
+        Itemset s1 = Common.extension(new Itemset(Arrays.asList("f", "d")), db);
+        Itemset s2 = Common.extension(new Itemset(Arrays.asList("b")), db);
         System.out.println(s1);
         System.out.println(s2);
     }
 
     @Test
     public void calMIU() {
-        int aMU = Common.calMIU("a", db);
-        int afMU = Common.calMIU("af", db);
+//        int aMU = Common.calMIU("a", db);
+//        int afMU = Common.calMIU("af", db);
+        int aMU = Common.calMIU(new Itemset(Arrays.asList("a")), db);
+        int afMU = Common.calMIU(new Itemset(Arrays.asList("a", "f")), db);
         assertEquals(80, aMU);
         assertEquals(44, afMU);
     }
 
     @Test
     public void calSMU() {
-        int eaSMU = Common.calSMU("ea", db);
-        int dcSMU = Common.calSMU("dc", db);
-        int fSMU = Common.calSMU("f", db);
-        int gSMU = Common.calSMU("g", db);
+//        int eaSMU = Common.calSMU("ea", db);
+//        int dcSMU = Common.calSMU("dc", db);
+//        int fSMU = Common.calSMU("f", db);
+//        int gSMU = Common.calSMU("g", db);
+        int eaSMU = Common.calSMU(new Itemset(Arrays.asList("e", "a")), db);
+        int dcSMU = Common.calSMU(new Itemset(Arrays.asList("d", "c")), db);
+        int fSMU = Common.calSMU(new Itemset(Arrays.asList("f")), db);
+        int gSMU = Common.calSMU(new Itemset(Arrays.asList("g")), db);
         assertEquals(0, dcSMU);
         assertEquals(62, eaSMU);
         assertEquals(44, fSMU);

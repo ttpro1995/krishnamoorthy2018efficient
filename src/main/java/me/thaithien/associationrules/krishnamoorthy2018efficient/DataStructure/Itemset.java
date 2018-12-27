@@ -1,6 +1,7 @@
 package me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Itemset {
@@ -12,5 +13,26 @@ public class Itemset {
      */
     public void add(String item){
         content.add(item);
+    }
+
+    public String get(int i){
+        return content.get(i);
+    }
+
+    public int size(){
+        return content.size();
+    }
+
+    public Itemset(List<String> content) {
+        this.content = new ArrayList<>(content);
+    }
+
+    public Itemset() {
+        this.content = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return content.toString();
     }
 }
