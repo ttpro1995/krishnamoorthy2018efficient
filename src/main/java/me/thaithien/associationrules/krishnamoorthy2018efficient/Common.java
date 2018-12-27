@@ -230,4 +230,44 @@ public class Common {
             return b;
         }
     }
+
+    /**
+     * Definition 12
+     * @param itemset
+     * @param t
+     * @param db
+     * @return
+     */
+    public static int calRU(Itemset itemset, Transaction t, SimpleDatabase db){
+        int ru = 0;
+        String lastItem = itemset.get(itemset.size() -1);
+        int lastidx = -1;
+        for (TransactionItem item: t.transactionContent){
+            if (item.name.equals(lastItem)){
+                lastidx = t.transactionContent.indexOf(item);
+            }
+        }
+        for (int i = lastidx+1; i< t.transactionContent.size(); i++){
+            TransactionItem item = t.transactionContent.get(i);
+            ru += item.IU * db.mapItemEU.get(item.name);
+        }
+        return ru;
+    }
+
+    /**
+     * Definition 13
+     * @param itemset
+     * @param db
+     * @return
+     */
+    public static int calRU(Itemset itemset, SimpleDatabase db){
+        int ru = 0;
+        for (Transaction t: db.transactionList){
+            if (t.contains(itemset)) {
+                int cur = calRU(itemset, t, db);
+                ru += cur;
+            }
+        }
+        return ru;
+    }
 }

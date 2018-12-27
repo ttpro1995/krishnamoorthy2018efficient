@@ -65,6 +65,20 @@ public class Transaction {
         }
     }
 
+    /**
+     * check if transaction contain itemset
+     * @param itemset
+     * @return
+     */
+    public boolean contains(Itemset itemset){
+        for (String item: itemset.content){
+            if (!this.itemInTransaction.contains(item)){
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
         StringJoiner contentStr = new StringJoiner(",");

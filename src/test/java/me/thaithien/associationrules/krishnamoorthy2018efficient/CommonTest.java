@@ -106,4 +106,19 @@ public class CommonTest {
         assertEquals(44, fSMU);
         assertEquals(57, gSMU);
     }
+
+    @Test
+    public void calRU() {
+        Itemset ac = new Itemset(Arrays.asList("a", "c"));
+        int rac1 = Common.calRU(ac, db.transactionList.get(0), db);
+        int rac7 = Common.calRU(ac, db.transactionList.get(6), db);
+        assertEquals(2, rac1);
+        assertEquals(7, rac7);
+        int racAll = Common.calRU(ac, db);
+        assertEquals(75, racAll);
+    }
+
+    @Test
+    public void calRU1() {
+    }
 }
