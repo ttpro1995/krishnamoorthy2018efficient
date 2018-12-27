@@ -14,6 +14,7 @@ public class Common {
     /**
      * Definition 7
      * Calculate the utility of an itemset X in transaction T
+     * @deprecated use Itemset instead of String
      * @param itemSet a string of itemset (example: ac)
      * @param t transaction to access iu
      * @param db database to access eu
@@ -23,6 +24,23 @@ public class Common {
         List<String> listOfItem = splitStringToCharacter(itemSet);
         int sumU = 0;
         for (String item: listOfItem){
+            int eu = db.mapItemEU.get(item);
+            int iu = t.mapItemIU.get(item);
+            sumU += iu * eu;
+        }
+        return sumU;
+    }
+
+    /**
+     * Definition 7
+     * @param itemSet
+     * @param t
+     * @param db
+     * @return
+     */
+    public static int calU(Itemset itemSet, Transaction t, SimpleDatabase db){
+        int sumU = 0;
+        for (String item: itemSet.content){
             int eu = db.mapItemEU.get(item);
             int iu = t.mapItemIU.get(item);
             sumU += iu * eu;
@@ -100,6 +118,15 @@ public class Common {
                 return mapTWU.get(o1).compareTo(mapTWU.get(o2));
             }
         });
+    }
+
+    /**
+     * Definition 14
+     * @param items
+     * @param mapTWU
+     */
+    public static void orderItemsByTWU(Itemset items, Map<String, Integer> mapTWU){
+        orderItemsByTWU(items.content, mapTWU);
     }
 
     /**

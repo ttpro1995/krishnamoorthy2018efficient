@@ -16,7 +16,8 @@ public class CommonTest {
 
     @Test
     public void calU() {
-        String itemSet = "ac";
+        // String itemSet = "ac";
+        Itemset itemSet = new Itemset(Arrays.asList("a", "c"));
         int result = Common.calU(itemSet, db.transactionList.get(0), db);
         assertEquals(result, 9);
     }

@@ -2,10 +2,10 @@ package me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure;
 
 public class UtilityInfo {
 
-    private String tid;
+    public int tid;
 
-    private int u;
+    public int u;
 
-    private int ru;
+    public int ru;
 
 }

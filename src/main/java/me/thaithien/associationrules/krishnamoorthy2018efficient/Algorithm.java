@@ -2,13 +2,13 @@ package me.thaithien.associationrules.krishnamoorthy2018efficient;
 
 import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Algorithm {
     public static void mainMHUI(SimpleDatabase db) {
+        // 1-itemset utility list
+        Map<String, ItemsetUtilityList> oneULs = new HashMap<>();
+
         // scan D and compute TWU for db
         db.calTUforAllTransaction();
         db.calTWUforAllTransaction();
@@ -37,6 +37,20 @@ public class Algorithm {
                     EUCS.increment(x1, x2, t.TU);
                 }
             }
+
+            for (TransactionItem item : t.transactionContent){
+                ItemsetUtilityList ul;
+                if (oneULs.containsKey(item.name)){
+                    ul = oneULs.get(item);
+                } else {
+                    ul = new ItemsetUtilityList();
+                    ul.setItemset(new Itemset(Arrays.asList(item.name)));
+                }
+                UtilityInfo utilityInfo = new UtilityInfo();
+                utilityInfo.tid = t.TID;
+                utilityInfo.u = Common.calU(new Itemset(Arrays.asList(item.name)), t, db);
+                // utilityInfo.ru
+            }
         }
 
         // Iteratively construct 1-itemset ULs
@@ -47,7 +61,7 @@ public class Algorithm {
             listOneItemset.add(a);
         }
 
-        //TODO: explore search tree
+
     }
 
     public static List<Itemset> exploreSearchTree(Itemset prefixP, List<ItemsetUtilityList> uls, Map<String, Integer> mapItemMU){
