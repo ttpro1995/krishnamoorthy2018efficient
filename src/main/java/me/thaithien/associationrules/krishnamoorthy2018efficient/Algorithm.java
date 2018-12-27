@@ -3,6 +3,7 @@ package me.thaithien.associationrules.krishnamoorthy2018efficient;
 import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public class Algorithm {
             int tu = 0;
             for (TransactionItem item : t.transactionContent) {
                 int twu = Common.calTWU(item.name, db);
-                int smu = Common.calSMU(item.name, db);
+                int smu = Common.calSMU(new Itemset(Arrays.asList(item.name)), db);
                 if (twu > smu) { // TWU M Prune
                     tu = tu + Common.calU(item.name, t, db);
                 }
