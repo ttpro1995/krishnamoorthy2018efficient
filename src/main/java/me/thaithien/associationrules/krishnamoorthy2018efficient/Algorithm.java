@@ -1,12 +1,10 @@
 package me.thaithien.associationrules.krishnamoorthy2018efficient;
 
-import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.EUCS;
-import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.SimpleDatabase;
-import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.Transaction;
-import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.TransactionItem;
+import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Algorithm {
     public static void mainMHUI(SimpleDatabase db) {
@@ -49,5 +47,13 @@ public class Algorithm {
         }
 
         //TODO: explore search tree
+    }
+
+    public static List<Itemset> exploreSearchTree(Itemset prefixP, List<ItemsetUtilityList> uls, Map<String, Integer> mapItemMU){
+        List<Itemset> hui = new ArrayList<>();
+        for (ItemsetUtilityList x: uls){
+            
+        }
+        return hui;
     }
 }
