@@ -8,4 +8,8 @@ public class UtilityInfo {
 
     public int ru;
 
+    @Override
+    public String toString() {
+        return "< " + String.valueOf(tid) + " - " + String.valueOf(u) + " - "+ String.valueOf(ru) + " >";
+    }
 }

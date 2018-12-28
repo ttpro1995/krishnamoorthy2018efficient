@@ -41,7 +41,7 @@ public class Algorithm {
             for (TransactionItem item : t.transactionContent){
                 ItemsetUtilityList ul;
                 if (oneULs.containsKey(item.name)){
-                    ul = oneULs.get(item);
+                    ul = oneULs.get(item.name);
                 } else {
                     ul = new ItemsetUtilityList();
                     ul.setItemset(new Itemset(Arrays.asList(item.name)));
@@ -49,18 +49,41 @@ public class Algorithm {
                 UtilityInfo utilityInfo = new UtilityInfo();
                 utilityInfo.tid = t.TID;
                 utilityInfo.u = Common.calU(new Itemset(Arrays.asList(item.name)), t, db);
-                // utilityInfo.ru
+                utilityInfo.ru = Common.calRU(new Itemset(Arrays.asList(item.name)), t, db);
+                ul.addUtilityList(utilityInfo);
+                oneULs.put(item.name, ul);
             }
         }
 
+
+
         // Iteratively construct 1-itemset ULs
-        List<List> listOneItemset = new ArrayList<>();
-        for (String item : db.orderItemTWU){ // 1-item already sorted by TWU
-            List<String> a = new ArrayList<>();
-            a.add(item);
-            listOneItemset.add(a);
+//        List<List> listOneItemset = new ArrayList<>();
+//        for (String item : db.orderItemTWU){ // 1-item already sorted by TWU
+//            List<String> a = new ArrayList<>();
+//            a.add(item);
+//            listOneItemset.add(a);
+//        }
+        List<ItemsetUtilityList> uls = new ArrayList<>();
+
+        for (ItemsetUtilityList ul : oneULs.values()){
+            ul.setMiu(Common.calMIU(ul.getItemset(), db));
+            uls.add(ul);
         }
 
+        //sort uls by twu
+        Collections.sort(uls, new Comparator<ItemsetUtilityList>() {
+            @Override
+            public int compare(ItemsetUtilityList o1, ItemsetUtilityList o2) {
+                return db.mapTWU.get(o1.getItemset().get(0)).compareTo(db.mapTWU.get(o2.getItemset().get(0)));
+            }
+        });
+
+        // debug
+        for (ItemsetUtilityList ul : uls){
+            System.out.println(ul);
+            System.out.println("\n\n");
+        }
 
     }
 
