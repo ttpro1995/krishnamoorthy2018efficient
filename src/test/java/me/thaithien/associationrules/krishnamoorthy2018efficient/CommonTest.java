@@ -79,6 +79,10 @@ public class CommonTest {
         Itemset s2 = Common.extension(new Itemset(Arrays.asList("b")), db);
         System.out.println(s1);
         System.out.println(s2);
+        Itemset s12 = Common.extension(new Itemset(Arrays.asList("f", "d")), db.mapTWU);
+        Itemset s22 = Common.extension(new Itemset(Arrays.asList("b")), db.mapTWU);
+        System.out.println(s1);
+        System.out.println(s2);
     }
 
     @Test
@@ -89,6 +93,10 @@ public class CommonTest {
         int afMU = Common.calMIU(new Itemset(Arrays.asList("a", "f")), db);
         assertEquals(80, aMU);
         assertEquals(44, afMU);
+        int aMU2 = Common.calMIU(new Itemset(Arrays.asList("a")), db.mapItemMU);
+        int afMU2 = Common.calMIU(new Itemset(Arrays.asList("a", "f")), db.mapItemMU);
+        assertEquals(80, aMU2);
+        assertEquals(44, afMU2);
     }
 
     @Test
@@ -105,6 +113,14 @@ public class CommonTest {
         assertEquals(62, eaSMU);
         assertEquals(44, fSMU);
         assertEquals(57, gSMU);
+        int eaSMU2 = Common.calSMU(new Itemset(Arrays.asList("e", "a")), db.mapItemMU, db.mapTWU);
+        int dcSMU2 = Common.calSMU(new Itemset(Arrays.asList("d", "c")), db.mapItemMU, db.mapTWU);
+        int fSMU2 = Common.calSMU(new Itemset(Arrays.asList("f")), db.mapItemMU, db.mapTWU);
+        int gSMU2 = Common.calSMU(new Itemset(Arrays.asList("g")), db.mapItemMU, db.mapTWU);
+        assertEquals(0, dcSMU2);
+        assertEquals(62, eaSMU2);
+        assertEquals(44, fSMU2);
+        assertEquals(57, gSMU2);
     }
 
     @Test

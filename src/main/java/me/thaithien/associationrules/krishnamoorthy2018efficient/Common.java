@@ -165,6 +165,29 @@ public class Common {
     }
 
     /**
+     * Definition 15
+     * Extension of the itemset
+     * @param itemset
+     */
+    public static Itemset extension(Itemset itemset, Map<String, Integer> mapTWU){
+        String lastItem = itemset.get(itemset.size()-1);
+        List<String> orderItemTWU = new ArrayList<>();
+        for (String item: mapTWU.keySet()){
+            orderItemTWU.add(item);
+        }
+
+        Collections.sort(orderItemTWU, Comparator.comparing(o -> mapTWU.get(o)));
+
+        int idx = orderItemTWU.indexOf(lastItem);
+        List<String> result = new ArrayList<>();
+        for (int i = idx + 1; i < orderItemTWU.size(); i++){
+            result.add(orderItemTWU.get(i));
+        }
+        Itemset resultItemset = new Itemset(result);
+        return resultItemset;
+    }
+
+    /**
      * Definition 2
      * @deprecated input itemset as List instead of single string
      * @return
@@ -178,6 +201,7 @@ public class Common {
         return Collections.min(muList);
     }
 
+
     /**
      * Definition 2
      * @param itemset
@@ -189,6 +213,21 @@ public class Common {
             return 0;
         }
         List<Integer> muList = itemset.content.stream().map(item -> db.mapItemMU.get(item)).collect(Collectors.toList());
+        return Collections.min(muList);
+    }
+
+
+    /**
+     * Definition 2
+     * @param itemset
+     * @param mapItemMU Table 3 in paper
+     * @return
+     */
+    public static int calMIU(Itemset itemset, Map<String, Integer> mapItemMU){
+        if (itemset.size()==0){
+            return 0;
+        }
+        List<Integer> muList = itemset.content.stream().map(item -> mapItemMU.get(item)).collect(Collectors.toList());
         return Collections.min(muList);
     }
 
@@ -229,6 +268,24 @@ public class Common {
         } else {
             return b;
         }
+    }
+
+
+    /**
+     * Definition 16
+     * @param itemset
+     * @param mapItemMU
+     * @param mapTWU
+     * @return
+     */
+    public static int calSMU(Itemset itemset, Map<String, Integer> mapItemMU, Map<String, Integer> mapTWU){
+        int a = calMIU(itemset, mapItemMU);
+
+        int b = calMIU(Common.extension(itemset, mapTWU), mapItemMU);
+        if (a < b){
+            return a;
+        }
+        return b;
     }
 
     /**

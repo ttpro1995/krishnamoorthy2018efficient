@@ -6,6 +6,9 @@ import java.util.*;
 
 public class Algorithm {
     public static void mainMHUI(SimpleDatabase db) {
+
+
+
         // 1-itemset utility list
         Map<String, ItemsetUtilityList> oneULs = new HashMap<>();
 
@@ -90,7 +93,15 @@ public class Algorithm {
     public static List<Itemset> exploreSearchTree(Itemset prefixP, List<ItemsetUtilityList> uls, Map<String, Integer> mapItemMU){
         List<Itemset> hui = new ArrayList<>();
         for (ItemsetUtilityList x: uls){
+            if (x.getU() >= x.getMiu()){
+                hui.add(x.getItemset());
+            }
 
+            // U-M-Prune
+//        if ((x.getU() + x.getRu()) >= Common.calSMU(){
+//
+//
+//            }
         }
         return hui;
     }
