@@ -39,6 +39,22 @@ public class ItemsetUtilityList {
         ru += info.ru;
     }
 
+    /**
+     * if tid exist, update
+     * else, add
+     * @param info
+     */
+    public void addOrUpdateUtilityList(UtilityInfo info){
+        UtilityInfo e = findTid(info.tid);
+        if (e == null){ // add
+            e = info;
+            addUtilityList(e);
+        } else { // update
+            e.u = info.u;
+            e.ru = info.ru;
+        }
+    }
+
     public int getMiu() {
         return miu;
     }
@@ -63,4 +79,23 @@ public class ItemsetUtilityList {
         }
         return builder.toString();
     }
+
+    /**
+     * find UtilityInfo with tid
+     * @param tid
+     * @return
+     */
+    public UtilityInfo findTid(int tid){
+        for (UtilityInfo info : utilityList){
+            if (info.tid == tid){
+                return info;
+            }
+        }
+        return null;
+    }
+
+    public boolean isEmpty(){
+        return utilityList.isEmpty();
+    }
+
 }

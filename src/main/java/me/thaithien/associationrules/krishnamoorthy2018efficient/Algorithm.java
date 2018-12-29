@@ -88,39 +88,76 @@ public class Algorithm {
             System.out.println("\n\n");
         }
 
+        // TODO: explore search tree
+
     }
 
-    public static List<Itemset> exploreSearchTree(Itemset prefixP,
+    public static List<ItemsetUtilityList> exploreSearchTree(ItemsetUtilityList prefixP,
                                                   List<ItemsetUtilityList> uls,
                                                   Map<String, Integer> mapItemMU,
                                                   Map<String, Integer> mapTWU){
-        List<Itemset> hui = new ArrayList<>();
+        List<ItemsetUtilityList> hui = new ArrayList<>();
         for (int i = 0; i < uls.size(); i++){
             ItemsetUtilityList x = uls.get(i);
             if (x.getU() >= x.getMiu()){
-                hui.add(x.getItemset());
+                hui.add(x);
             }
-
+            List<ItemsetUtilityList> exULs = new ArrayList<>();
             //  U-M-Prune
             if ((x.getU() + x.getRu()) >= Common.calSMU(x.getItemset(), mapItemMU, mapTWU)){
-                List<ItemsetUtilityList> exULs = new ArrayList<>();
-
                 // for each utility list y after x in ULs do
                 for (int j = i + 1; j < uls.size(); j++){
                     ItemsetUtilityList y = uls.get(j);
 
-                    Itemset x_p = x.getItemset().substract(prefixP);
-                    Itemset y_p = y.getItemset().substract(prefixP);
+                    Itemset x_p = x.getItemset().substract(prefixP.getItemset());
+                    Itemset y_p = y.getItemset().substract(prefixP.getItemset());
 
                     // eucs m prune
-                    if (EUCS.get(x_p, y_p) >= Common.calSMU(x, mapItemMU, mapTWU)){
-                        
+                    if (EUCS.get(x_p, y_p) >= Common.calSMU(x.getItemset(), mapItemMU, mapTWU)){
+                        ItemsetUtilityList ul_xy = Algorithm.constructUtilityList(prefixP, x, y, mapItemMU, mapTWU);
+                        if (ul_xy != null){
+                            exULs.add(ul_xy);
+                        }
                     }
 
                 }
             }
-
+            List<ItemsetUtilityList> childHui = Algorithm.exploreSearchTree(x, exULs, mapItemMU, mapTWU);
+            hui.addAll(childHui);
         }
         return hui;
+    }
+
+    public static ItemsetUtilityList constructUtilityList(ItemsetUtilityList p,
+                                                          ItemsetUtilityList px,
+                                                          ItemsetUtilityList py,
+                                                          Map<String, Integer> mapItemMU,
+                                                          Map<String, Integer> mapTWU){
+        ItemsetUtilityList pxy = new ItemsetUtilityList();
+        int tutil = px.getU() + px.getRu(); // LA-M-Prune
+
+        for (UtilityInfo ex: px.getUtilityList()){
+            UtilityInfo ey = py.findTid(ex.tid);
+            if (ey != null) { // if exist ey in Py and ex.tid = ey.tid
+                UtilityInfo exy = new UtilityInfo();
+                if (!p.isEmpty()){
+                    UtilityInfo e = p.findTid(ex.tid); // find e in P such that e.tid == ex.tid
+                    exy.tid = ex.tid;
+                    exy.u = ex.u + ey.u - e.u;
+                    exy.ru = ey.ru;
+                } else { // p is empty
+                    exy.tid = ex.tid;
+                    exy.u = ex.u + ey.u;
+                    exy.ru = ey.ru;
+                }
+                pxy.addOrUpdateUtilityList(exy);
+            } else { // recompute tutil and apply LA-M-Prune
+                tutil = tutil - ex.u - ex.ru;
+                if (tutil < Common.calSMU(px.getItemset(), mapItemMU, mapTWU)){
+                    return null;
+                }
+            }
+        }
+        return pxy;
     }
 }

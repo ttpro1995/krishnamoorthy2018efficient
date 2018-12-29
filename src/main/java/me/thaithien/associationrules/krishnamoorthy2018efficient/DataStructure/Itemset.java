@@ -48,4 +48,21 @@ public class Itemset {
         result.content.removeAll(o2.content);
         return result;
     }
+
+    /**
+     * add two itemset
+     * ignore dublicate
+     * @param o2
+     * @return
+     */
+    public Itemset add(Itemset o2){
+        Itemset result = new Itemset();
+        result.content.addAll(this.content);
+        for (String item: o2.content){
+            if (!result.content.contains(item)){
+                result.content.add(item);
+            }
+        }
+        return result;
+    }
 }
