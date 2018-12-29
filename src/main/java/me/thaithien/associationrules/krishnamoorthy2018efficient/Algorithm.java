@@ -109,7 +109,13 @@ public class Algorithm {
                 for (int j = i + 1; j < uls.size(); j++){
                     ItemsetUtilityList y = uls.get(j);
 
-                    // TODO: fix EUCS
+                    Itemset x_p = x.getItemset().substract(prefixP);
+                    Itemset y_p = y.getItemset().substract(prefixP);
+
+                    // eucs m prune
+                    if (EUCS.get(x_p, y_p) >= Common.calSMU(x, mapItemMU, mapTWU)){
+                        
+                    }
 
                 }
             }
