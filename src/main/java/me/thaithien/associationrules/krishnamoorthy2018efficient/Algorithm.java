@@ -90,18 +90,30 @@ public class Algorithm {
 
     }
 
-    public static List<Itemset> exploreSearchTree(Itemset prefixP, List<ItemsetUtilityList> uls, Map<String, Integer> mapItemMU){
+    public static List<Itemset> exploreSearchTree(Itemset prefixP,
+                                                  List<ItemsetUtilityList> uls,
+                                                  Map<String, Integer> mapItemMU,
+                                                  Map<String, Integer> mapTWU){
         List<Itemset> hui = new ArrayList<>();
-        for (ItemsetUtilityList x: uls){
+        for (int i = 0; i < uls.size(); i++){
+            ItemsetUtilityList x = uls.get(i);
             if (x.getU() >= x.getMiu()){
                 hui.add(x.getItemset());
             }
 
-            // U-M-Prune
-//        if ((x.getU() + x.getRu()) >= Common.calSMU(){
-//
-//
-//            }
+            //  U-M-Prune
+            if ((x.getU() + x.getRu()) >= Common.calSMU(x.getItemset(), mapItemMU, mapTWU)){
+                List<ItemsetUtilityList> exULs = new ArrayList<>();
+
+                // for each utility list y after x in ULs do
+                for (int j = i + 1; j < uls.size(); j++){
+                    ItemsetUtilityList y = uls.get(j);
+
+                    // TODO: fix EUCS
+
+                }
+            }
+
         }
         return hui;
     }

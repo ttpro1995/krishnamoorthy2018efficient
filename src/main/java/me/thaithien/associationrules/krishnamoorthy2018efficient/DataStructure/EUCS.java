@@ -3,6 +3,9 @@ package me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Implement as in paper
  * FHM: Faster High-Utility Itemset Mining using Estimated Utility Co-occurrence Pruning
@@ -42,6 +45,17 @@ public class EUCS {
     }
 
     /**
+     * get value from eucs
+     * x1, x2 value is not matter
+     * @param x1 item
+     * @param x2 item
+     * @return
+     */
+    public static int get(Itemset x1, Itemset x2){
+       return get(itemsetToString(x1), itemsetToString(x2));
+    }
+
+    /**
      * increase value of EUCS(x1, x2) by value
      * init at 0
      * @param x1
@@ -56,5 +70,38 @@ public class EUCS {
             val = 0;
         }
         data.put(x1, x2, val + value);
+    }
+
+    /**
+     * increase value of EUCS(x1, x2) by value
+     * init at 0
+     * @param x1
+     * @param x2
+     * @param value
+     */
+    public static void increment(Itemset x1, Itemset x2, int value){
+        increment(itemsetToString(x1), itemsetToString(x2), value);
+    }
+
+    /**
+     * put value to eucs
+     * order of x1 and x2 is not matter
+     * @param x1 item
+     * @param x2 item
+     * @param value
+     */
+    public static void put(Itemset x1, Itemset x2, int value){
+        put(itemsetToString(x1), itemsetToString(x2), value);
+    }
+
+    /**
+     * itemset to string to use as key
+     * @param itemset
+     * @return
+     */
+    private static String itemsetToString(Itemset itemset){
+        List<String> content = new ArrayList<>();
+        content.addAll(itemset.content);
+        return content.toString();
     }
 }

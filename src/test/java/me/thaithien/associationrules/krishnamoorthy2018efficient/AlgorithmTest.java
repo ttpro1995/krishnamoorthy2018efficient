@@ -4,6 +4,9 @@ import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.S
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class AlgorithmTest {
@@ -24,5 +27,17 @@ public class AlgorithmTest {
     @Test
     public void mainMHUI() {
         Algorithm.mainMHUI(db);
+    }
+
+    @Test
+    public void iterationAfter(){
+        List<String> testList = Arrays.asList("a", "b", "c", "d", "e", "f", "g");
+        for (String e1: testList){
+            for (String e2: testList){
+                if (testList.indexOf(e2) > testList.indexOf(e1)){
+                    System.out.println(e1 + " " + e2);
+                }
+            }
+        }
     }
 }

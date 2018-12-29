@@ -35,4 +35,17 @@ public class Itemset {
     public String toString() {
         return content.toString();
     }
+
+    /**
+     * create new itemset = this - o2
+     * new itemset that have item in this, without item from o2
+     * @param o2
+     * @return
+     */
+    public Itemset substract(Itemset o2){
+        Itemset result = new Itemset();
+        result.content.addAll(this.content);
+        result.content.removeAll(o2.content);
+        return result;
+    }
 }
