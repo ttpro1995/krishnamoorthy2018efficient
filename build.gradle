@@ -7,6 +7,19 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'krishnamoorthy2018efficient',
+                'Implementation-Version': version,
+                'Main-Class': 'me.thaithien.associationrules.krishnamoorthy2018efficient.MainApp'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 repositories {
     mavenCentral()
 }

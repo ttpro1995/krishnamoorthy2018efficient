@@ -5,7 +5,7 @@ import me.thaithien.associationrules.krishnamoorthy2018efficient.DataStructure.*
 import java.util.*;
 
 public class Algorithm {
-    public static void mainMHUI(SimpleDatabase db) {
+    public static List<ItemsetUtilityList> mainMHUI(SimpleDatabase db) {
 
 
 
@@ -84,19 +84,25 @@ public class Algorithm {
             }
         });
 
-        // debug
-        for (ItemsetUtilityList ul : uls){
-            System.out.println(ul);
-            System.out.println("\n\n");
-        }
+//        // debug
+//        for (ItemsetUtilityList ul : uls){
+//            System.out.println(ul);
+//            System.out.println("\n\n");
+//        }
 
         System.out.println("============================");
-        // TODO: explore search tree
         List<ItemsetUtilityList> hui = exploreSearchTree(new ItemsetUtilityList(), uls, db.mapItemMU, db.mapTWU);
-        for (ItemsetUtilityList ul : hui){
-            System.out.println(ul);
-            System.out.println("\n\n");
+        for (ItemsetUtilityList item: hui){
+            item.setMiu(Common.calMIU(item.getItemset(), db.mapItemMU));
+
         }
+
+//        // debug
+//        for (ItemsetUtilityList ul : hui){
+//            System.out.println(ul);
+//            System.out.println("\n\n");
+//        }
+        return hui;
     }
 
     public static List<ItemsetUtilityList> exploreSearchTree(ItemsetUtilityList prefixP,
