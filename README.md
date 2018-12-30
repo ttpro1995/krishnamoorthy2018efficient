@@ -1,5 +1,7 @@
 ### Efficient mining of high utility itemsets with multiple minimum utility thresholds
 
+[![Build Status](https://travis-ci.org/ttpro1995/krishnamoorthy2018efficient.svg?branch=master)](https://travis-ci.org/ttpro1995/krishnamoorthy2018efficient)
+
 This is re-implement of algorithm in paper 
 ```
 @article{krishnamoorthy2018efficient,
@@ -21,7 +23,18 @@ How to use
 
 ```
 gradle build
-
+gradle fatJar
 ```
 
-2. Run
+2. Put jar and data in same folder <br>  
+* krishnamoorthy2018efficient-all-1.0-SNAPSHOT.jar
+* transaction_data.txt
+* item_profit_and_minimum_thresholds.txt
+
+3. Run 
+
+```
+java -jar krishnamoorthy2018efficient-all-1.0-SNAPSHOT.jar "transaction_data.txt" "item_profit_and_minimum_thresholds.txt"
+```
+
+
