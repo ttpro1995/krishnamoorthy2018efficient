@@ -9,7 +9,6 @@ jdk:
 script:
   - gradle build
   - gradle test
-  - gradle fatJar
 
 after_success:
   - gradle jacocoTestReport coveralls
