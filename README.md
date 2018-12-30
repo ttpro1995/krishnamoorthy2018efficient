@@ -1,6 +1,8 @@
 ### Efficient mining of high utility itemsets with multiple minimum utility thresholds
 
 [![Build Status](https://travis-ci.org/ttpro1995/krishnamoorthy2018efficient.svg?branch=master)](https://travis-ci.org/ttpro1995/krishnamoorthy2018efficient)
+[![Coverage Status](https://coveralls.io/repos/github/ttpro1995/krishnamoorthy2018efficient/badge.svg?branch=master)](https://coveralls.io/github/ttpro1995/krishnamoorthy2018efficient?branch=master)
+
 
 This is re-implement of algorithm in paper 
 ```
