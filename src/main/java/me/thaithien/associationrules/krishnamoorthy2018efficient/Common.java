@@ -170,15 +170,18 @@ public class Common {
      * @param itemset
      */
     public static Itemset extension(Itemset itemset, Map<String, Integer> mapTWU){
-        String lastItem = itemset.get(itemset.size()-1);
+        int idx = 0;
         List<String> orderItemTWU = new ArrayList<>();
         for (String item: mapTWU.keySet()){
             orderItemTWU.add(item);
         }
-
         Collections.sort(orderItemTWU, Comparator.comparing(o -> mapTWU.get(o)));
 
-        int idx = orderItemTWU.indexOf(lastItem);
+        if (!itemset.content.isEmpty()) {
+            String lastItem = itemset.get(itemset.size() - 1);
+            idx = orderItemTWU.indexOf(lastItem);
+        }
+
         List<String> result = new ArrayList<>();
         for (int i = idx + 1; i < orderItemTWU.size(); i++){
             result.add(orderItemTWU.get(i));

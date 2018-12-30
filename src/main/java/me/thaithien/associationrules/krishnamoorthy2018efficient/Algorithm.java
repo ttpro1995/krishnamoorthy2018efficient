@@ -32,11 +32,13 @@ public class Algorithm {
             t.TU = tu; // update new TU
             for (int i = 0; i< t.transactionContent.size(); i++){
                 for (int j = 0 ; j< t.transactionContent.size(); j++){
-                    String x1 = t.transactionContent.get(i).name;
-                    String x2 = t.transactionContent.get(j).name;
-                    if (x1.equals(x2)){
+                    String x1str = t.transactionContent.get(i).name;
+                    String x2str = t.transactionContent.get(j).name;
+                    if (x1str.equals(x2str)){
                         continue;
                     }
+                    Itemset x1 = new Itemset(Arrays.asList(x1str));
+                    Itemset x2 = new Itemset(Arrays.asList(x2str));
                     EUCS.increment(x1, x2, t.TU);
                 }
             }
@@ -88,8 +90,13 @@ public class Algorithm {
             System.out.println("\n\n");
         }
 
+        System.out.println("============================");
         // TODO: explore search tree
-
+        List<ItemsetUtilityList> hui = exploreSearchTree(new ItemsetUtilityList(), uls, db.mapItemMU, db.mapTWU);
+        for (ItemsetUtilityList ul : hui){
+            System.out.println(ul);
+            System.out.println("\n\n");
+        }
     }
 
     public static List<ItemsetUtilityList> exploreSearchTree(ItemsetUtilityList prefixP,
@@ -134,6 +141,7 @@ public class Algorithm {
                                                           Map<String, Integer> mapItemMU,
                                                           Map<String, Integer> mapTWU){
         ItemsetUtilityList pxy = new ItemsetUtilityList();
+        pxy.setItemset(px.getItemset().add(py.getItemset()));
         int tutil = px.getU() + px.getRu(); // LA-M-Prune
 
         for (UtilityInfo ex: px.getUtilityList()){
