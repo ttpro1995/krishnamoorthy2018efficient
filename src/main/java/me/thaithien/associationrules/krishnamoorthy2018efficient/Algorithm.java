@@ -92,10 +92,9 @@ public class Algorithm {
 
         System.out.println("============================");
         List<ItemsetUtilityList> hui = exploreSearchTree(new ItemsetUtilityList(), uls, db.mapItemMU, db.mapTWU);
-        for (ItemsetUtilityList item: hui){
-            item.setMiu(Common.calMIU(item.getItemset(), db.mapItemMU));
-
-        }
+//        for (ItemsetUtilityList item: hui){
+//            item.setMiu(Common.calMIU(item.getItemset(), db.mapItemMU));
+//        }
 
 //        // debug
 //        for (ItemsetUtilityList ul : hui){
@@ -112,6 +111,7 @@ public class Algorithm {
         List<ItemsetUtilityList> hui = new ArrayList<>();
         for (int i = 0; i < uls.size(); i++){
             ItemsetUtilityList x = uls.get(i);
+            x.setMiu(Common.calMIU(x.getItemset(), mapItemMU));
             if (x.getU() >= x.getMiu()){
                 hui.add(x);
             }
